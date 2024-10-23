@@ -1,13 +1,15 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-# Install dependencies
-RUN apk update && apk add --no-cache \
-    bash sudo openssh nano tzdata \
-    xvfb x11vnc xfce4 xfce4-terminal \
-    xrdb xhost xrandr xset
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    xfce4 xfce4-goodies x11vnc dbus-x11 xfonts-base xinit xvfb \
+    xserver-xorg x11-xserver-utils \
+    openssh-server openssh-client nano \
+    mesa-utils libgl1-mesa-dri x11-utils \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN touch /root/.Xauthority
 ENV XRES 1280x800x24
+ENV DEBIAN_FRONTEND=noninteractive
 ENV USER=root
 ENV PASSWD=password
 ENV HOME="/root"
@@ -24,8 +26,9 @@ COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN sed -i -e 's/\r$//' /usr/local/bin/entrypoint.sh && \
     chmod +x /usr/local/bin/entrypoint.sh
 
-RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config \
-&& echo "root:${PASSWD}" | chpasswd 
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
+    echo "root:${PASSWD}" | chpasswd && \
+    mkdir /var/run/sshd
 
 EXPOSE 5900 22
 

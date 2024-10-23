@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Desired Timezone is $TZ ..."
-# if TZ is not "Pacific/Auckland"
+# if TZ is not "Pacific/Auckland", e.g. "America/New_York"
 if [ "$TZ" != "Pacific/Auckland" ]; then
     echo "Changing timezone."
     rm -f /etc/localtime
@@ -31,7 +31,7 @@ Xvfb :0 -screen 0 ${XRES}s &
 sleep 2
 startxfce4 &
 sleep 5
-# start x11vnc 
+# start x11vnc
 # -bg option to run in background
 x11vnc -display :0 -auth /root/.Xauthority -forever -noxdamage -noxrecord -noxfixes -repeat -rfbauth /root/.vnc/passwd -rfbport 5900 -shared -permitfiletransfer -tightfilexfer -bg
 

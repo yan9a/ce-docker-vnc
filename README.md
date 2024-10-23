@@ -3,7 +3,9 @@ Docker images with VNC
 
 ## ce-alpine-vnc 
 
-Apline image with x11vnc 
+Docker image with x11vnc on alpine.
 
+## ce-ubuntu-vnc 
 
+Docker image with x11vnc on ubuntu.
 
