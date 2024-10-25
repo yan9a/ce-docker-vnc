@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xserver-xorg x11-xserver-utils \
     openssh-server openssh-client nano \
     mesa-utils libgl1-mesa-dri x11-utils \
-    at-spi2-core \
+    at-spi2-core supervisor \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN touch /root/.Xauthority
@@ -31,6 +31,7 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
     echo "root:${PASSWD}" | chpasswd && \
     mkdir /var/run/sshd
 
+COPY supervisord.conf /etc/supervisord.conf
 EXPOSE 5900 22
 
 # Start VNC server

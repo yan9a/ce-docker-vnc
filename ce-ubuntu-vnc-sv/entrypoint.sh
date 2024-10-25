@@ -24,20 +24,7 @@ else
 fi
 
 ssh-keygen -A
-/usr/sbin/sshd
-
 eval "$(dbus-launch --sh-syntax)"
 export DBUS_SESSION_BUS_ADDRESS
 export DBUS_SESSION_BUS_PID
-
-# start the x server
-Xvfb :0 -screen 0 ${XRES}s &
-sleep 2
-startxfce4 &
-sleep 5
-# start x11vnc
-# -bg option to run in background
-x11vnc -display :0 -auth /root/.Xauthority -forever -noxdamage -noxrecord -noxfixes -repeat -rfbauth /root/.vnc/passwd -rfbport 5900 -shared -permitfiletransfer -tightfilexfer -bg
-
-# Keep the container running in detach mode or use -bg option in x11vnc
-# tail -f /dev/null
+/usr/bin/supervisord
