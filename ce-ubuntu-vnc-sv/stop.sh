@@ -1,4 +1,4 @@
 #!/bin/sh
-docker container stop uvnc
-docker container rm uvnc
+docker container stop uvncsv
+docker container rm uvncsv
 

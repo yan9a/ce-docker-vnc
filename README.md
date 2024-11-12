@@ -43,3 +43,7 @@ Docker image with x11vnc on alpine using supervisord.
 ## ce-ubuntu-vnc-sv
 
 Docker image with x11vnc on ubuntu using supervisord.
+
+## ce-ubuntu-xf
+
+If the container is running locally, using X11 forwarding can often be more convenient. The image ce-ubuntu-xf demonstrates a simple implementation of X11 forwarding.
